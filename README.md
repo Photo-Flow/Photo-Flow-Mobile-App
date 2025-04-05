@@ -10,7 +10,7 @@ A new Flutter project.
 Clone the project repository:
  
 ```bash
- $ git clone https://github.com/joaovictorgarcia10/nasa_pictures_app.git
+ $ git clone https://github.com/Photo-Flow/Photo-Flow-Mobile-App.git
 ```
 
 Open the project folder and run the following commands:
