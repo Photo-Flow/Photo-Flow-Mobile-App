@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1084527110",
+    "project_id": "photo-flow-mobile-app",
+    "storage_bucket": "photo-flow-mobile-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084527110:android:f37a42aa6a339f6fe8a987",
+        "android_client_info": {
+          "package_name": "com.example.photo_flow_mobile_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBld8w8Ao1_5bKRHzyAPZBUAayh0FEms_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
