@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:photo_flow_mobile_app/modules/auth/pages/login/cubit/login_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/auth/pages/register/register_page.dart';
+import 'package:photo_flow_mobile_app/modules/home/pages/home_page.dart';
 import 'package:photo_flow_mobile_app/modules/shared/components/button/button_component.dart';
 import 'package:photo_flow_mobile_app/modules/shared/components/text_form_field/text_form_field_component.dart';
 import 'package:photo_flow_mobile_app/modules/shared/validators/validators.dart';
@@ -26,9 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      appBar: AppBar(title: const Text('Login')),
       body: BlocListener(
         bloc: cubit,
         listener: (context, state) {
@@ -38,18 +37,15 @@ class _LoginPageState extends State<LoginPage> {
 
             case LoginSuccessState():
               setState(() => isLoading = false);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Login realizado com sucesso!"),
-                ),
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const HomePage()),
               );
 
             case LoginErrorState():
               setState(() => isLoading = false);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Erro ao realizar login!"),
-                ),
+                const SnackBar(content: Text("Erro ao realizar login!")),
               );
           }
         },
@@ -94,12 +90,13 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 20.0),
                     ButtonComponent(
                       title: "Criar conta",
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const RegisterPage(),
-                        ),
-                      ),
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const RegisterPage(),
+                            ),
+                          ),
                     ),
                   ],
                 ),

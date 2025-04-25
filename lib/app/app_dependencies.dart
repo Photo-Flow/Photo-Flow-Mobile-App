@@ -4,6 +4,10 @@ import 'package:get_it/get_it.dart';
 import 'package:photo_flow_mobile_app/modules/auth/pages/login/cubit/login_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider.dart';
+import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider_firebase.dart';
+import 'package:photo_flow_mobile_app/modules/home/pages/cubit/home_cubit.dart';
+import 'package:photo_flow_mobile_app/modules/home/providers/home_provider.dart';
+import 'package:photo_flow_mobile_app/modules/home/providers/home_provider_firebase.dart';
 import 'package:photo_flow_mobile_app/modules/shared/controllers/account_info/account_info_controller.dart';
 
 class AppDependencies {
@@ -27,18 +31,23 @@ class AppDependencies {
   }
 
   void _setupProviders() {
-    injector.registerLazySingleton(
-      () => AuthProvider(firebaseAuth: FirebaseAuth.instance),
-    );
+    injector
+      ..registerLazySingleton<AuthProvider>(
+        () => AuthProviderFirebase(firebaseAuth: FirebaseAuth.instance),
+      )
+      ..registerLazySingleton<HomeProvider>(() => HomeProviderFirebase());
   }
 
   void _setupCubits() {
-    injector.registerLazySingleton(
-      () => LoginCubit(authProvider: injector.get<AuthProvider>()),
-    );
-
-    injector.registerLazySingleton(
-      () => RegisterCubit(authProvider: injector.get<AuthProvider>()),
-    );
+    injector
+      ..registerLazySingleton(
+        () => LoginCubit(authProvider: injector.get<AuthProvider>()),
+      )
+      ..registerLazySingleton(
+        () => RegisterCubit(authProvider: injector.get<AuthProvider>()),
+      )
+      ..registerLazySingleton(
+        () => HomeCubit(homeProvider: injector.get<HomeProvider>()),
+      );
   }
 }
