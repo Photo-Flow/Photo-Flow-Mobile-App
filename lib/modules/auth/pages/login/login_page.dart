@@ -6,7 +6,7 @@ import 'package:photo_flow_mobile_app/modules/auth/pages/register/register_page.
 import 'package:photo_flow_mobile_app/modules/home/pages/home_page.dart';
 import 'package:photo_flow_mobile_app/modules/shared/components/button/button_component.dart';
 import 'package:photo_flow_mobile_app/modules/shared/components/text_form_field/text_form_field_component.dart';
-import 'package:photo_flow_mobile_app/modules/shared/validators/validators.dart';
+import 'package:photo_flow_mobile_app/modules/shared/utils/validators/validators.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

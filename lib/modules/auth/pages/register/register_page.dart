@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:photo_flow_mobile_app/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/shared/components/button/button_component.dart';
 import 'package:photo_flow_mobile_app/modules/shared/components/text_form_field/text_form_field_component.dart';
-import 'package:photo_flow_mobile_app/modules/shared/validators/validators.dart';
+import 'package:photo_flow_mobile_app/modules/shared/utils/validators/validators.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
