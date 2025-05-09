@@ -16,7 +16,9 @@ final class LoginLoadingState extends LoginState {
 }
 
 final class LoginSuccessState extends LoginState {
-  const LoginSuccessState();
+  final UserModel user;
+
+  const LoginSuccessState({required this.user});
 }
 
 final class LoginErrorState extends LoginState {

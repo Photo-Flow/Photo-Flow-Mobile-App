@@ -20,7 +20,7 @@ class Validadors {
     if (text == null || text.isEmpty) {
       return "Você deve preencher sua senha";
     }
-    if (text.length < 5) {
+    if (text.length < 6) {
       return "Sua senha deve ter pelo menos 6 dígitos";
     }
     return null;

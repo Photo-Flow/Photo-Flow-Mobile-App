@@ -25,7 +25,7 @@ class ButtonComponent extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24.0),
-          color: (isLoading || isDisabled) ? Colors.black : Colors.green[900],
+          color: (isLoading || isDisabled) ? Colors.grey : Colors.green[900],
         ),
         child:
             isLoading

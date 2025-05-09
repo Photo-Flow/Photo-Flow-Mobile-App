@@ -22,28 +22,27 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
-      body: BlocListener(
+      /// BlocListener to listen to state changes and made decisions based on them
+      body: BlocListener<LoginCubit, LoginState>(
         bloc: cubit,
         listener: (context, state) {
           switch (state) {
+            case LoginInitialState():
+              break;
             case LoginLoadingState():
-              setState(() => isLoading = true);
-
+              break;
             case LoginSuccessState():
-              setState(() => isLoading = false);
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (_) => const HomePage()),
               );
-
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Bem vindo! ${state.user.email}")),
+              );
             case LoginErrorState():
-              setState(() => isLoading = false);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Erro ao realizar login!")),
               );
@@ -56,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
               child: Form(
                 key: formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormFieldComponent(
                       label: "Email:",
@@ -75,16 +73,23 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.text,
                     ),
                     const SizedBox(height: 40.0),
-                    ButtonComponent(
-                      title: "Entrar",
-                      isLoading: isLoading,
-                      onTap: () {
-                        if (formKey.currentState!.validate()) {
-                          cubit.login(
-                            emailController.text,
-                            passwordController.text,
-                          );
-                        }
+
+                    /// BlocBuilder to rebuild the widget when the state changes
+                    BlocBuilder(
+                      bloc: cubit,
+                      builder: (context, state) {
+                        return ButtonComponent(
+                          title: "Entrar",
+                          isLoading: state is LoginLoadingState,
+                          onTap: () {
+                            if (formKey.currentState!.validate()) {
+                              cubit.login(
+                                emailController.text,
+                                passwordController.text,
+                              );
+                            }
+                          },
+                        );
                       },
                     ),
                     const SizedBox(height: 20.0),
