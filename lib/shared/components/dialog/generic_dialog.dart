@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:photo_flow_mobile_app/modules/shared/components/button/button_component.dart';
-import 'package:photo_flow_mobile_app/modules/shared/components/button/second_button_component.dart';
+import 'package:photo_flow_mobile_app/shared/components/button/button_component.dart';
+import 'package:photo_flow_mobile_app/shared/components/button/second_button_component.dart';
 
 class GenericDialog extends StatelessWidget {
   final IconData icon;

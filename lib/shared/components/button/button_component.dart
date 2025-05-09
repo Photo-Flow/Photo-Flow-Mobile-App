@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_flow_mobile_app/modules/shared/components/loading/loading_component.dart';
+import 'package:photo_flow_mobile_app/shared/components/loading/loading_component.dart';
 
 class ButtonComponent extends StatelessWidget {
   final String title;
