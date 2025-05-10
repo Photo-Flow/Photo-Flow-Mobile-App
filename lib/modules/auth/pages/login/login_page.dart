@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:photo_flow_mobile_app/modules/auth/pages/login/cubit/login_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/auth/pages/register/register_page.dart';
-import 'package:photo_flow_mobile_app/modules/home/pages/home_page.dart';
+import 'package:photo_flow_mobile_app/modules/home/pages/navigation_bar/navigation_bar_page.dart';
 import 'package:photo_flow_mobile_app/shared/components/button/button_component.dart';
 import 'package:photo_flow_mobile_app/shared/components/text_form_field/text_form_field_component.dart';
 import 'package:photo_flow_mobile_app/shared/utils/validators/validators.dart';
@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
             case LoginSuccessState():
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => const HomePage()),
+                MaterialPageRoute(builder: (_) => const NavigationBarPage()),
               );
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Bem vindo! ${state.user.email}")),

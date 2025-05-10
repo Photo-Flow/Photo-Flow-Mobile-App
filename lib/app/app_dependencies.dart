@@ -5,7 +5,7 @@ import 'package:photo_flow_mobile_app/modules/auth/pages/login/cubit/login_cubit
 import 'package:photo_flow_mobile_app/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider.dart';
 import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider_firebase.dart';
-import 'package:photo_flow_mobile_app/modules/home/pages/cubit/home_cubit.dart';
+import 'package:photo_flow_mobile_app/modules/home/pages/home/cubit/home_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/home/providers/home_provider.dart';
 import 'package:photo_flow_mobile_app/modules/home/providers/home_provider_firebase.dart';
 import 'package:photo_flow_mobile_app/shared/controllers/account_info/account_info_controller.dart';

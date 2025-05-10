@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photo_flow_mobile_app/modules/home/pages/cubit/home_cubit.dart';
+import 'package:photo_flow_mobile_app/modules/home/pages/home/cubit/home_cubit.dart';
 import 'package:photo_flow_mobile_app/shared/controllers/account_info/account_info_controller.dart';
 
 class HomePage extends StatefulWidget {
