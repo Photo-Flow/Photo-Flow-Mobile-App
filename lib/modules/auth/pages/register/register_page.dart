@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:photo_flow_mobile_app/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:photo_flow_mobile_app/shared/components/button/button_component.dart';
 import 'package:photo_flow_mobile_app/shared/components/text_form_field/text_form_field_component.dart';
+import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
 import 'package:photo_flow_mobile_app/shared/utils/validators/validators.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -28,7 +29,10 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Criar conta'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
+      backgroundColor: PhotoFlowColors.photoFlowBackground,
       body: BlocListener(
         bloc: cubit,
         listener: (context, state) {
@@ -39,13 +43,15 @@ class _RegisterPageState extends State<RegisterPage> {
             case RegisterSuccessState():
               setState(() => isLoading = false);
               ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Conta criada com sucesso!")));
+                const SnackBar(content: Text("Conta criada com sucesso!")),
+              );
               Navigator.pop(context);
 
             case RegisterErrorState():
               setState(() => isLoading = false);
               ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Erro ao criar conta!")));
+                const SnackBar(content: Text("Erro ao criar conta!")),
+              );
           }
         },
         child: Center(
@@ -80,12 +86,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       prefixIcon: Icons.lock,
                       controller: confirmPasswordController,
                       obscureText: true,
-                      validator: (text) => Validadors.confirmPasswordValidator(
-                        text,
-                        passwordController.text,
-                      ),
+                      validator:
+                          (text) => Validadors.confirmPasswordValidator(
+                            text,
+                            passwordController.text,
+                          ),
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 40.0),
                     ButtonComponent(
                       title: "Criar conta",
                       isLoading: isLoading,

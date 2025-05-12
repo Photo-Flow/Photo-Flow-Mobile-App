@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_flow_mobile_app/shared/components/loading/loading_component.dart';
+import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
 
 class ButtonComponent extends StatelessWidget {
   final String title;
@@ -18,14 +19,16 @@ class ButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(24.0),
       onTap: (isLoading || isDisabled) ? null : onTap,
       child: Container(
         height: 48.0,
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24.0),
-          color: (isLoading || isDisabled) ? Colors.grey : Colors.green[900],
+          borderRadius: BorderRadius.circular(8.0),
+          color:
+              (isLoading || isDisabled)
+                  ? Colors.grey
+                  : PhotoFlowColors.photoFlowButton,
         ),
         child:
             isLoading
@@ -33,7 +36,11 @@ class ButtonComponent extends StatelessWidget {
                 : Center(
                   child: Text(
                     title,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(
+                      color: PhotoFlowColors.photoFlowTextPrimary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.0,
+                    ),
                   ),
                 ),
       ),

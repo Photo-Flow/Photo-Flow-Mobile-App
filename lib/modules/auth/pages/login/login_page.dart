@@ -6,6 +6,7 @@ import 'package:photo_flow_mobile_app/modules/auth/pages/register/register_page.
 import 'package:photo_flow_mobile_app/modules/home/pages/home_page.dart';
 import 'package:photo_flow_mobile_app/shared/components/button/button_component.dart';
 import 'package:photo_flow_mobile_app/shared/components/text_form_field/text_form_field_component.dart';
+import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
 import 'package:photo_flow_mobile_app/shared/utils/validators/validators.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,6 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: PhotoFlowColors.photoFlowBackground,
+
       /// BlocListener to listen to state changes and made decisions based on them
       body: BlocListener<LoginCubit, LoginState>(
         bloc: cubit,
@@ -63,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                       validator: (text) => Validadors.emailValidator(text),
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 10.0),
                     TextFormFieldComponent(
                       label: "Senha:",
                       prefixIcon: Icons.lock,
@@ -92,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 10.0),
                     ButtonComponent(
                       title: "Criar conta",
                       onTap:
