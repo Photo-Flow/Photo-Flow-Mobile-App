@@ -1,11 +1,20 @@
 import 'dart:ui';
 
 class PhotoFlowColors {
-  static const photoFlowGreen = Color(0xFF4CAF50);
-  static const photoFlowGreenLight = Color(0xFF81C784);
-  static const photoFlowGreenDark = Color(0xFF388E3C);
-  static const photoFlowRed = Color(0xFFF44336);
-  static const photoFlowRedLight = Color(0xFFEF9A9A);
-  static const photoFlowRedDark = Color(0xFFC62828);
-  static const photoFlowBlue = Color(0xFF2196F3);
+  // static const Color photoFlowPrimary = Color(0xFFFFD600);
+
+  static const Color photoFlowBackground = Color(0xFF121212);
+
+  // static const Color photoFlowCard = Color(0xFF1E1E1E);
+
+  static const Color photoFlowTextPrimary = Color(0xFF1E1E1E);
+  static const Color photoFlowTextSecondary = Color(0xFFB3B3B3);
+
+  static const Color photoFlowButton = Color(0xFFFFD600);
+  // static const Color photoFlowButtonCancel = Color(0xFF2A2A2A);
+
+  static const Color photoFlowInputBackground = Color(0xFF333333);
+  // static const Color photoFlowInputBorder = Color(0xFF2C2C2C);
+
+  // static const Color photoFlowIconActive = Color(0xFF888888);
 }
