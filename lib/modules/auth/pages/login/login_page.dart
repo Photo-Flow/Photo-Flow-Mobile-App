@@ -27,8 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: PhotoFlowColors.photoFlowBackground,
-
-      /// BlocListener to listen to state changes and made decisions based on them
       body: BlocListener<LoginCubit, LoginState>(
         bloc: cubit,
         listener: (context, state) {
@@ -51,66 +49,75 @@ class _LoginPageState extends State<LoginPage> {
               );
           }
         },
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    TextFormFieldComponent(
-                      label: "Email:",
-                      prefixIcon: Icons.email,
-                      controller: emailController,
-                      validator: (text) => Validadors.emailValidator(text),
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextFormFieldComponent(
-                      label: "Senha:",
-                      prefixIcon: Icons.lock,
-                      controller: passwordController,
-                      obscureText: true,
-                      validator: (text) => Validadors.passwordValidator(text),
-                      keyboardType: TextInputType.text,
-                    ),
-                    const SizedBox(height: 40.0),
-
-                    /// BlocBuilder to rebuild the widget when the state changes
-                    BlocBuilder(
-                      bloc: cubit,
-                      builder: (context, state) {
-                        return ButtonComponent(
-                          title: "Entrar",
-                          isLoading: state is LoginLoadingState,
-                          onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              cubit.login(
-                                emailController.text,
-                                passwordController.text,
-                              );
-                            }
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 10.0),
-                    ButtonComponent(
-                      title: "Criar conta",
-                      onTap:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const RegisterPage(),
-                            ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 120),
+            Image.asset('assets/Logo.png'),
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          TextFormFieldComponent(
+                            label: "Email:",
+                            prefixIcon: Icons.email,
+                            controller: emailController,
+                            validator:
+                                (text) => Validadors.emailValidator(text),
+                            keyboardType: TextInputType.emailAddress,
                           ),
+                          const SizedBox(height: 10.0),
+                          TextFormFieldComponent(
+                            label: "Senha:",
+                            prefixIcon: Icons.lock,
+                            controller: passwordController,
+                            obscureText: true,
+                            validator:
+                                (text) => Validadors.passwordValidator(text),
+                            keyboardType: TextInputType.text,
+                          ),
+                          const SizedBox(height: 40.0),
+                          BlocBuilder(
+                            bloc: cubit,
+                            builder: (context, state) {
+                              return ButtonComponent(
+                                title: "Entrar",
+                                isLoading: state is LoginLoadingState,
+                                onTap: () {
+                                  if (formKey.currentState!.validate()) {
+                                    cubit.login(
+                                      emailController.text,
+                                      passwordController.text,
+                                    );
+                                  }
+                                },
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 10.0),
+                          ButtonComponent(
+                            title: "Criar conta",
+                            onTap:
+                                () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const RegisterPage(),
+                                  ),
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
