@@ -40,11 +40,11 @@ class PhotoUploadProviderFirebase implements PhotoUploadProvider {
       if (!file.existsSync()) {
         throw Exception('File does not exist at path: $filePath');
       }
-      await ref.putFile(file, metadata);
+      final TaskSnapshot snapshot = await ref.putFile(file, metadata);
 
 
       // Obter a URL de download pública
-      final String downloadUrl = await ref.getDownloadURL();
+      final String downloadUrl = await snapshot.ref.getDownloadURL();
 
       // Criar objeto com dados da foto
       final photoData = {
