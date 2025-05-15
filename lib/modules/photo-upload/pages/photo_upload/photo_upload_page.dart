@@ -1,8 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get_it/get_it.dart';
+import 'package:photo_flow_mobile_app/shared/components/button/button_component.dart';
+import 'package:photo_flow_mobile_app/shared/components/loading/loading_component.dart';
 import 'cubit/photo_upload_cubit.dart';
 import 'cubit/photo_upload_state.dart';
 
@@ -17,9 +18,29 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
   final cubit = GetIt.instance.get<PhotoUploadCubit>();
 
   @override
+  void initState() {
+    super.initState();
+    // Verifica se o usuário está autenticado quando a página é carregada
+    if (!cubit.isUserLoggedIn()) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Mostra aviso se não estiver autenticado
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Você precisa estar logado para publicar fotos'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        // Aqui você pode adicionar lógica para redirecionar para a tela de login
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: theme.colorScheme.surface,
       body: SafeArea(
         child: BlocBuilder<PhotoUploadCubit, PhotoUploadState>(
           bloc: cubit,
@@ -35,14 +56,12 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                           child: AspectRatio(
                             aspectRatio: 1,
                             child: Card(
-                              color: Colors.grey[900],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24.0),
-                              ),
+                              // Usando o cardTheme definido no tema
                               child: InkWell(
                                 onTap: () {
                                   cubit.selectPhoto();
                                 },
+                                borderRadius: BorderRadius.circular(24.0),
                                 child: state.selectedPhotoPath != null
                                     ? ClipRRect(
                                         borderRadius: BorderRadius.circular(24.0),
@@ -51,20 +70,20 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                                           fit: BoxFit.cover,
                                         ),
                                       )
-                                    : const Center(
+                                    : Center(
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.camera_alt_outlined,
                                               size: 48,
-                                              color: Colors.white,
+                                              color: theme.colorScheme.primary,
                                             ),
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Text(
                                               'Toque para selecionar',
                                               style: TextStyle(
-                                                color: Colors.white,
+                                                color: theme.colorScheme.primary,
                                                 fontSize: 16,
                                               ),
                                             ),
@@ -77,30 +96,14 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 48,
-                        child: ElevatedButton(
-                          onPressed: state.status == PhotoUploadStatus.loading
-                              ? null
-                              : () {
-                                  cubit.uploadPhoto();
-                                },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.yellow,
-                            foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.0),
-                            ),
-                          ),
-                          child: const Text(
-                            'Publicar',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                      // Usando o ButtonComponent em vez do ElevatedButton
+                      ButtonComponent(
+                        title: cubit.isUserLoggedIn() ? 'Publicar' : 'Faça login para publicar',
+                        onTap: () {
+                          cubit.uploadPhoto();
+                        },
+                        isLoading: state.status == PhotoUploadStatus.loading,
+                        isDisabled: !cubit.isUserLoggedIn(),
                       ),
                     ],
                   ),
@@ -108,10 +111,10 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                 if (state.status == PhotoUploadStatus.loading)
                   Container(
                     color: Colors.black54,
-                    child: const Center(
-                      child: SpinKitCircle(
-                        color: Colors.yellow,
-                        size: 50.0,
+                    child: Center(
+                      // Usando o LoadingComponent
+                      child: LoadingComponent(
+                        color: theme.colorScheme.primary,
                       ),
                     ),
                   ),
@@ -129,6 +132,24 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                       child: Text(
                         state.errorMessage ?? 'An error occurred',
                         style: const TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                if (state.status == PhotoUploadStatus.success && state.selectedPhotoPath == null)
+                  Positioned(
+                    bottom: 80,
+                    left: 16,
+                    right: 16,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Text(
+                        'Foto publicada com sucesso!',
+                        style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     ),

@@ -1,11 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../providers/photo_upload_provider.dart';
 import 'photo_upload_state.dart';
 
 class PhotoUploadCubit extends Cubit<PhotoUploadState> {
   final PhotoUploadProvider photoUploadProvider;
+  final FirebaseAuth _auth;
 
-  PhotoUploadCubit({required this.photoUploadProvider}) : super(const PhotoUploadState());
+  PhotoUploadCubit({
+    required this.photoUploadProvider, 
+    FirebaseAuth? firebaseAuth,
+  }) : _auth = firebaseAuth ?? FirebaseAuth.instance, 
+       super(const PhotoUploadState());
 
   Future<void> selectPhoto() async {
     try {
@@ -34,13 +40,35 @@ class PhotoUploadCubit extends Cubit<PhotoUploadState> {
 
     try {
       emit(state.copyWith(status: PhotoUploadStatus.loading));
-      await photoUploadProvider.uploadPhoto(state.selectedPhotoPath!);
-      emit(state.copyWith(status: PhotoUploadStatus.success));
+      
+      // Obter o usuário atual autenticado
+      final User? currentUser = _auth.currentUser;
+      if (currentUser == null) {
+        throw Exception('User not authenticated');
+      }
+      
+      // Usar o ID do usuário atual para o upload
+      await photoUploadProvider.uploadPhoto(state.selectedPhotoPath!, currentUser.uid);
+      
+      emit(state.copyWith(
+        status: PhotoUploadStatus.success,
+        selectedPhotoPath: null // Limpar a foto após upload bem-sucedido
+      ));
     } catch (e) {
       emit(state.copyWith(
         status: PhotoUploadStatus.failure,
         errorMessage: e.toString(),
       ));
     }
+  }
+  
+  // Método auxiliar para verificar se o usuário está logado
+  bool isUserLoggedIn() {
+    return _auth.currentUser != null;
+  }
+  
+  // Método para obter o ID do usuário atual
+  String? getCurrentUserId() {
+    return _auth.currentUser?.uid;
   }
 }
