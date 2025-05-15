@@ -56,8 +56,10 @@ class AppDependencies {
         () => HomeCubit(homeProvider: injector.get<HomeProvider>()),
       )
       ..registerLazySingleton(
-        () => PhotoUploadCubit(photoUploadProvider: injector.get<PhotoUploadProvider>()),
-      )
-      ;
+        () => PhotoUploadCubit(
+          photoUploadProvider: injector.get<PhotoUploadProvider>(),
+          accountInfoController: injector.get<AccountInfoController>(),
+        ),
+      );
   }
 }

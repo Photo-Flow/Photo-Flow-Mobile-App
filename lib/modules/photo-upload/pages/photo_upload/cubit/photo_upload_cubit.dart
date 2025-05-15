@@ -1,17 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../../providers/photo_upload_provider.dart';
+import 'package:photo_flow_mobile_app/shared/controllers/account_info/account_info_controller.dart';
 import 'photo_upload_state.dart';
 
 class PhotoUploadCubit extends Cubit<PhotoUploadState> {
   final PhotoUploadProvider photoUploadProvider;
-  final FirebaseAuth _auth;
+  final AccountInfoController accountInfoController;
 
   PhotoUploadCubit({
-    required this.photoUploadProvider, 
-    FirebaseAuth? firebaseAuth,
-  }) : _auth = firebaseAuth ?? FirebaseAuth.instance, 
-       super(const PhotoUploadState());
+    required this.photoUploadProvider,
+    required this.accountInfoController,
+  }) : super(const PhotoUploadState());
 
   Future<void> selectPhoto() async {
     try {
@@ -41,14 +40,14 @@ class PhotoUploadCubit extends Cubit<PhotoUploadState> {
     try {
       emit(state.copyWith(status: PhotoUploadStatus.loading));
       
-      // Obter o usuário atual autenticado
-      final User? currentUser = _auth.currentUser;
+      // Obter o usuário atual usando o AccountInfoController
+      final currentUser = accountInfoController.getUser();
       if (currentUser == null) {
         throw Exception('User not authenticated');
       }
       
       // Usar o ID do usuário atual para o upload
-      await photoUploadProvider.uploadPhoto(state.selectedPhotoPath!, currentUser.uid);
+      await photoUploadProvider.uploadPhoto(state.selectedPhotoPath!, currentUser.id);
       
       emit(state.copyWith(
         status: PhotoUploadStatus.success,
@@ -62,13 +61,8 @@ class PhotoUploadCubit extends Cubit<PhotoUploadState> {
     }
   }
   
-  // Método auxiliar para verificar se o usuário está logado
+  // Verificar se o usuário está logado usando o AccountInfoController
   bool isUserLoggedIn() {
-    return _auth.currentUser != null;
-  }
-  
-  // Método para obter o ID do usuário atual
-  String? getCurrentUserId() {
-    return _auth.currentUser?.uid;
+    return accountInfoController.getUser() != null;
   }
 }
