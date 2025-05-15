@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
 
 class TextFormFieldComponent extends StatelessWidget {
   final String label;
@@ -35,28 +36,54 @@ class TextFormFieldComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: TextFormField(
-        enabled: enabled,
-        controller: controller,
-        keyboardType: keyboardType ?? TextInputType.text,
-        inputFormatters: inputFormatters ?? [],
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: validator,
-        onChanged: onChanged,
-        obscureText: obscureText,
-        cursorColor: Colors.black,
-        maxLines: obscureText ? 1 : maxLines,
-        minLines: obscureText ? null : minLines,
-        decoration: InputDecoration(
-          labelText: label,
-          prefixIcon: Icon(prefixIcon),
-          suffixIcon: IconButton(
-            icon: Icon(suffixIcon),
-            onPressed: onTapSuffixIcon,
-          ),
+    return TextFormField(
+      enabled: enabled,
+      controller: controller,
+      keyboardType: keyboardType ?? TextInputType.text,
+      inputFormatters: inputFormatters ?? [],
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: validator,
+      onChanged: onChanged,
+      obscureText: obscureText,
+      cursorColor: Colors.black,
+      maxLines: obscureText ? 1 : maxLines,
+      minLines: obscureText ? null : minLines,
+      style: const TextStyle(color: PhotoFlowColors.photoFlowTextSecondary),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(
+          color: PhotoFlowColors.photoFlowTextSecondary,
         ),
+        prefixIcon: Icon(
+          prefixIcon,
+          color: PhotoFlowColors.photoFlowTextSecondary,
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(suffixIcon, color: PhotoFlowColors.photoFlowTextSecondary),
+          onPressed: onTapSuffixIcon,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        fillColor: PhotoFlowColors.photoFlowInputBackground,
+        filled: true,
       ),
     );
   }
