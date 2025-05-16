@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
-import 'package:photo_flow_mobile_app/modules/auth/models/user_model.dart';
+import 'package:photo_flow_mobile_app/shared/models/user_model.dart';
 import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider.dart';
 
 class AuthProviderFirebase implements AuthProvider {

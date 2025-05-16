@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photo_flow_mobile_app/modules/auth/models/user_model.dart';
+import 'package:photo_flow_mobile_app/shared/models/user_model.dart';
 import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider.dart';
 
 part 'login_state.dart';
