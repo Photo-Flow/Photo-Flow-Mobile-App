@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:photo_flow_mobile_app/shared/components/button/button_component.dart';
 import 'package:photo_flow_mobile_app/shared/components/loading/loading_component.dart';
+import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
 import 'cubit/photo_upload_cubit.dart';
 import 'cubit/photo_upload_state.dart';
 
@@ -38,9 +39,13 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      appBar: AppBar(
+        title: const Text('Upload Photo'),
+        backgroundColor: PhotoFlowColors.photoFlowButton,
+      ),
+      backgroundColor: PhotoFlowColors.photoFlowBackground,
       body: SafeArea(
         child: BlocBuilder<PhotoUploadCubit, PhotoUploadState>(
           bloc: cubit,
@@ -56,6 +61,7 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                           child: AspectRatio(
                             aspectRatio: 1,
                             child: Card(
+                              color: PhotoFlowColors.photoFlowInputBackground,
                               // Usando o cardTheme definido no tema
                               child: InkWell(
                                 onTap: () {
@@ -77,13 +83,13 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                                             Icon(
                                               Icons.camera_alt_outlined,
                                               size: 48,
-                                              color: theme.colorScheme.primary,
+                                              color: PhotoFlowColors.photoFlowButton,
                                             ),
                                             const SizedBox(height: 16),
                                             Text(
                                               'Toque para selecionar',
                                               style: TextStyle(
-                                                color: theme.colorScheme.primary,
+                                                color: PhotoFlowColors.photoFlowButton,
                                                 fontSize: 16,
                                               ),
                                             ),
@@ -95,6 +101,31 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                           ),
                         ),
                       ),
+                      // Slider para remover ruído apenas quando há uma foto selecionada
+                      if (state.selectedPhotoPath != null)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Remover ruído:',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Expanded(
+                                child: Switch(
+                                  value: state.denoiseEnabled,
+                                  onChanged: (value) {
+                                    cubit.toggleDenoiseEnabled();
+                                  },
+                                  activeColor: PhotoFlowColors.photoFlowButton,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       const SizedBox(height: 16),
                       // Usando o ButtonComponent em vez do ElevatedButton
                       ButtonComponent(
@@ -103,7 +134,7 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                           cubit.uploadPhoto();
                         },
                         isLoading: state.status == PhotoUploadStatus.loading,
-                        isDisabled: !cubit.isUserLoggedIn(),
+                        isDisabled: !cubit.isUserLoggedIn() || state.selectedPhotoPath == null,
                       ),
                     ],
                   ),
@@ -114,7 +145,7 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                     child: Center(
                       // Usando o LoadingComponent
                       child: LoadingComponent(
-                        color: theme.colorScheme.primary,
+                        color: PhotoFlowColors.photoFlowButton,
                       ),
                     ),
                   ),
@@ -130,7 +161,7 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        state.errorMessage ?? 'An error occurred',
+                        state.errorMessage ?? 'Ocorreu um erro',
                         style: const TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
