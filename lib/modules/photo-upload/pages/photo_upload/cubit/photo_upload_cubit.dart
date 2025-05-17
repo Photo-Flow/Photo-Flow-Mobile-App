@@ -20,7 +20,7 @@ class PhotoUploadCubit extends Cubit<PhotoUploadState> {
       emit(state.copyWith(status: PhotoUploadStatus.loading));
       final String path = await photoUploadProvider.selectPhoto();
       emit(state.copyWith(
-        status: PhotoUploadStatus.success,
+        status: PhotoUploadStatus.initial,
         selectedPhotoPath: path,
       ));
     } catch (e) {
@@ -75,6 +75,9 @@ class PhotoUploadCubit extends Cubit<PhotoUploadState> {
         status: PhotoUploadStatus.failure,
         errorMessage: e.toString(),
       ));
+    }
+    finally {
+      emit(state.copyWith(status: PhotoUploadStatus.initial));
     }
   }
   

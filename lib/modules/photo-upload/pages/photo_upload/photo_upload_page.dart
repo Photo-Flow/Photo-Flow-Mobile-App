@@ -38,8 +38,6 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Upload Photo'),
@@ -47,8 +45,29 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
       ),
       backgroundColor: PhotoFlowColors.photoFlowBackground,
       body: SafeArea(
-        child: BlocBuilder<PhotoUploadCubit, PhotoUploadState>(
+        child: BlocConsumer<PhotoUploadCubit, PhotoUploadState>(
           bloc: cubit,
+          listener: (context, state) {
+            // Exibir SnackBar de sucesso quando o upload for bem-sucedido
+            if (state.status == PhotoUploadStatus.success) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Foto publicada com sucesso!'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            }
+            
+            // Exibir SnackBar de erro quando ocorrer uma falha
+            if (state.status == PhotoUploadStatus.failure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMessage ?? 'Ocorreu um erro'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             return Stack(
               children: [
@@ -146,42 +165,6 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                       // Usando o LoadingComponent
                       child: LoadingComponent(
                         color: PhotoFlowColors.photoFlowButton,
-                      ),
-                    ),
-                  ),
-                if (state.status == PhotoUploadStatus.failure)
-                  Positioned(
-                    bottom: 80,
-                    left: 16,
-                    right: 16,
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        state.errorMessage ?? 'Ocorreu um erro',
-                        style: const TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                if (state.status == PhotoUploadStatus.success && state.selectedPhotoPath == null)
-                  Positioned(
-                    bottom: 80,
-                    left: 16,
-                    right: 16,
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Text(
-                        'Foto publicada com sucesso!',
-                        style: TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
