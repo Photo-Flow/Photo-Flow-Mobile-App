@@ -8,6 +8,9 @@ import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider_fireb
 import 'package:photo_flow_mobile_app/modules/home/pages/home/cubit/home_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/home/providers/home_provider.dart';
 import 'package:photo_flow_mobile_app/modules/home/providers/home_provider_firebase.dart';
+import 'package:photo_flow_mobile_app/modules/profile/pages/update/cubit/update_cubit.dart';
+import 'package:photo_flow_mobile_app/modules/profile/providers/profile_provider.dart';
+import 'package:photo_flow_mobile_app/modules/profile/providers/profile_provider_firebase.dart';
 import 'package:photo_flow_mobile_app/shared/controllers/account_info/account_info_controller.dart';
 
 class AppDependencies {
@@ -35,7 +38,10 @@ class AppDependencies {
       ..registerLazySingleton<AuthProvider>(
         () => AuthProviderFirebase(firebaseAuth: FirebaseAuth.instance),
       )
-      ..registerLazySingleton<HomeProvider>(() => HomeProviderFirebase());
+      ..registerLazySingleton<HomeProvider>(() => HomeProviderFirebase())
+      ..registerLazySingleton<ProfileProvider>(
+        () => ProfileProviderFirebase(firebaseAuth: FirebaseAuth.instance),
+      );
   }
 
   void _setupCubits() {
@@ -48,6 +54,9 @@ class AppDependencies {
       )
       ..registerLazySingleton(
         () => HomeCubit(homeProvider: injector.get<HomeProvider>()),
+      )
+      ..registerLazySingleton(
+        () => UpdateCubit(profileProvider: injector.get<ProfileProvider>()),
       );
   }
 }
