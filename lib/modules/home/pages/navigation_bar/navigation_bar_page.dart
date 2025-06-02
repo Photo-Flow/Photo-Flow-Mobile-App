@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:photo_flow_mobile_app/modules/home/pages/home/home_page.dart';
+
+import 'package:photo_flow_mobile_app/modules/profile/pages/update/update_page.dart';
+
 import 'package:photo_flow_mobile_app/modules/photo-upload/pages/photo_upload/photo_upload_page.dart';
 import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
+
 class NavigationBarPage extends StatefulWidget {
   const NavigationBarPage({super.key});
 
@@ -10,7 +14,11 @@ class NavigationBarPage extends StatefulWidget {
 }
 
 class _NavigationBarPageState extends State<NavigationBarPage> {
+
+  final pages = const [HomePage(), SizedBox(), UpdatePage()];
+
   final pages = const [HomePage(), PhotoUploadPage(), SizedBox()];
+
 
   int index = 0;
 
