@@ -8,6 +8,9 @@ import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider_fireb
 import 'package:photo_flow_mobile_app/modules/home/pages/home/cubit/home_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/home/providers/home_provider.dart';
 import 'package:photo_flow_mobile_app/modules/home/providers/home_provider_firebase.dart';
+import 'package:photo_flow_mobile_app/modules/photo-upload/pages/photo_upload/cubit/photo_upload_cubit.dart';
+import 'package:photo_flow_mobile_app/modules/photo-upload/providers/photo_upload_provider.dart';
+import 'package:photo_flow_mobile_app/modules/photo-upload/providers/photo_upload_provider_firebase.dart';
 import 'package:photo_flow_mobile_app/shared/controllers/account_info/account_info_controller.dart';
 
 class AppDependencies {
@@ -35,7 +38,10 @@ class AppDependencies {
       ..registerLazySingleton<AuthProvider>(
         () => AuthProviderFirebase(firebaseAuth: FirebaseAuth.instance),
       )
-      ..registerLazySingleton<HomeProvider>(() => HomeProviderFirebase());
+      ..registerLazySingleton<HomeProvider>(() => HomeProviderFirebase())
+      // ignore: avoid_single_cascade_in_expression_statements
+      ..registerLazySingleton<PhotoUploadProvider>(() => PhotoUploadProviderFirebase());
+
   }
 
   void _setupCubits() {
@@ -48,6 +54,12 @@ class AppDependencies {
       )
       ..registerLazySingleton(
         () => HomeCubit(homeProvider: injector.get<HomeProvider>()),
+      )
+      ..registerLazySingleton(
+        () => PhotoUploadCubit(
+          photoUploadProvider: injector.get<PhotoUploadProvider>(),
+          accountInfoController: injector.get<AccountInfoController>(),
+        ),
       );
   }
 }
