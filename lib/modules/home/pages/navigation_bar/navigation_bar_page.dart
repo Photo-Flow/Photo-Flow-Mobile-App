@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:photo_flow_mobile_app/modules/home/pages/home/home_page.dart';
+
 import 'package:photo_flow_mobile_app/modules/profile/pages/update/update_page.dart';
+
+import 'package:photo_flow_mobile_app/modules/photo-upload/pages/photo_upload/photo_upload_page.dart';
+import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
 
 class NavigationBarPage extends StatefulWidget {
   const NavigationBarPage({super.key});
@@ -10,7 +14,11 @@ class NavigationBarPage extends StatefulWidget {
 }
 
 class _NavigationBarPageState extends State<NavigationBarPage> {
+
   final pages = const [HomePage(), SizedBox(), UpdatePage()];
+
+  final pages = const [HomePage(), PhotoUploadPage(), SizedBox()];
+
 
   int index = 0;
 
@@ -30,9 +38,10 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
           BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
         ],
-        selectedItemColor: Colors.black,
+        selectedItemColor: PhotoFlowColors.photoFlowButton,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
         unselectedItemColor: Colors.grey,
+        backgroundColor: PhotoFlowColors.photoFlowBackground,
         currentIndex: index,
         onTap: (value) => changeIndex(value),
       ),

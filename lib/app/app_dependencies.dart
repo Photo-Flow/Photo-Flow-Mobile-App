@@ -8,9 +8,13 @@ import 'package:photo_flow_mobile_app/modules/auth/providers/auth_provider_fireb
 import 'package:photo_flow_mobile_app/modules/home/pages/home/cubit/home_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/home/providers/home_provider.dart';
 import 'package:photo_flow_mobile_app/modules/home/providers/home_provider_firebase.dart';
+import 'package:photo_flow_mobile_app/modules/photo-upload/pages/photo_upload/cubit/photo_upload_cubit.dart';
+import 'package:photo_flow_mobile_app/modules/photo-upload/providers/photo_upload_provider.dart';
+import 'package:photo_flow_mobile_app/modules/photo-upload/providers/photo_upload_provider_firebase.dart';
 import 'package:photo_flow_mobile_app/modules/profile/pages/update/cubit/update_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/profile/providers/profile_provider.dart';
 import 'package:photo_flow_mobile_app/modules/profile/providers/profile_provider_firebase.dart';
+
 import 'package:photo_flow_mobile_app/shared/controllers/account_info/account_info_controller.dart';
 
 class AppDependencies {
@@ -39,9 +43,13 @@ class AppDependencies {
         () => AuthProviderFirebase(firebaseAuth: FirebaseAuth.instance),
       )
       ..registerLazySingleton<HomeProvider>(() => HomeProviderFirebase())
+
       ..registerLazySingleton<ProfileProvider>(
         () => ProfileProviderFirebase(firebaseAuth: FirebaseAuth.instance),
       );
+      // ignore: avoid_single_cascade_in_expression_statements
+      ..registerLazySingleton<PhotoUploadProvider>(() => PhotoUploadProviderFirebase());
+
   }
 
   void _setupCubits() {
@@ -56,7 +64,13 @@ class AppDependencies {
         () => HomeCubit(homeProvider: injector.get<HomeProvider>()),
       )
       ..registerLazySingleton(
+
         () => UpdateCubit(profileProvider: injector.get<ProfileProvider>()),
+
+        () => PhotoUploadCubit(
+          photoUploadProvider: injector.get<PhotoUploadProvider>(),
+          accountInfoController: injector.get<AccountInfoController>(),
+        ),
       );
   }
 }
