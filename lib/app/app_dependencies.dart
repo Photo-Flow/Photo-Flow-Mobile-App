@@ -14,6 +14,9 @@ import 'package:photo_flow_mobile_app/modules/photo-upload/providers/photo_uploa
 import 'package:photo_flow_mobile_app/modules/profile/pages/update/cubit/update_cubit.dart';
 import 'package:photo_flow_mobile_app/modules/profile/providers/profile_provider.dart';
 import 'package:photo_flow_mobile_app/modules/profile/providers/profile_provider_firebase.dart';
+import 'package:photo_flow_mobile_app/modules/profile/pages/user_profile/cubit/user_profile_cubit.dart';
+import 'package:photo_flow_mobile_app/modules/profile/providers/user_profile_provider.dart';
+import 'package:photo_flow_mobile_app/modules/profile/providers/user_profile_provider_firebase.dart';
 
 import 'package:photo_flow_mobile_app/shared/controllers/account_info/account_info_controller.dart';
 
@@ -36,7 +39,6 @@ class AppDependencies {
       () => AccountInfoController(firebaseAuth: FirebaseAuth.instance),
     );
   }
-
   void _setupProviders() {
     injector
       ..registerLazySingleton<AuthProvider>(
@@ -48,6 +50,9 @@ class AppDependencies {
       )
       ..registerLazySingleton<PhotoUploadProvider>(
         () => PhotoUploadProviderFirebase(),
+      )
+      ..registerLazySingleton<UserProfileProvider>(
+        () => UserProfileProviderFirebase(),
       );
   }
 
@@ -68,6 +73,11 @@ class AppDependencies {
       ..registerLazySingleton(
         () => PhotoUploadCubit(
           photoUploadProvider: injector.get<PhotoUploadProvider>(),
+          accountInfoController: injector.get<AccountInfoController>(),
+        ),
+      )      ..registerLazySingleton(
+        () => UserProfileCubit(
+          userProfileProvider: injector.get<UserProfileProvider>(),
           accountInfoController: injector.get<AccountInfoController>(),
         ),
       );

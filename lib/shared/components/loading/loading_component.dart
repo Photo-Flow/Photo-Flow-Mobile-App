@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
 
 class LoadingComponent extends StatelessWidget {
   final Color? color;
@@ -11,9 +11,11 @@ class LoadingComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SpinKitThreeBounce(
-      color: color ?? Colors.black,
-      size: 16.0,
+    return CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation<Color>(
+        color ?? PhotoFlowColors.photoFlowButton,
+      ),
+      strokeWidth: 2,
     );
   }
 }
