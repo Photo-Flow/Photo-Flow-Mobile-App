@@ -19,7 +19,7 @@ class CardFeedComponent extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
-        color: PhotoFlowColors.photoFlowBackground,
+        color: PhotoFlowColors.photoFlowInputBackground,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +65,9 @@ class CardFeedComponent extends StatelessWidget {
                     backgroundColor: PhotoFlowColors.photoFlowButton,
                     foregroundColor: PhotoFlowColors.photoFlowTextPrimary,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 8),
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -76,10 +78,7 @@ class CardFeedComponent extends StatelessWidget {
                   },
                   child: const Text(
                     "Download",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                 ),
               ],
