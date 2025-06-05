@@ -47,19 +47,6 @@ class CardFeedComponent extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                // const Row(
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //     Text(
-                //       "Download",
-                //       style: TextStyle(
-                //         backgroundColor: PhotoFlowColors.photoFlowButton,
-                //         color: PhotoFlowColors.photoFlowTextPrimary,
-                //         fontSize: 14,
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PhotoFlowColors.photoFlowButton,
