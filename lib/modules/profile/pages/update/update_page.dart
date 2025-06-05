@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:photo_flow_mobile_app/modules/profile/pages/update/cubit/update_cubit.dart';
@@ -78,7 +77,7 @@ class __UpdatePageState extends State<UpdatePage> {
                                 bottom: 0,
                                 right: 0,
                                 child: Container(
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: PhotoFlowColors.photoFlowBackground,
                                   ),

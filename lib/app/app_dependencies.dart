@@ -43,13 +43,12 @@ class AppDependencies {
         () => AuthProviderFirebase(firebaseAuth: FirebaseAuth.instance),
       )
       ..registerLazySingleton<HomeProvider>(() => HomeProviderFirebase())
-
       ..registerLazySingleton<ProfileProvider>(
         () => ProfileProviderFirebase(firebaseAuth: FirebaseAuth.instance),
+      )
+      ..registerLazySingleton<PhotoUploadProvider>(
+        () => PhotoUploadProviderFirebase(),
       );
-      // ignore: avoid_single_cascade_in_expression_statements
-      ..registerLazySingleton<PhotoUploadProvider>(() => PhotoUploadProviderFirebase());
-
   }
 
   void _setupCubits() {
@@ -64,9 +63,9 @@ class AppDependencies {
         () => HomeCubit(homeProvider: injector.get<HomeProvider>()),
       )
       ..registerLazySingleton(
-
         () => UpdateCubit(profileProvider: injector.get<ProfileProvider>()),
-
+      )
+      ..registerLazySingleton(
         () => PhotoUploadCubit(
           photoUploadProvider: injector.get<PhotoUploadProvider>(),
           accountInfoController: injector.get<AccountInfoController>(),
