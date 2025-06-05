@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_flow_mobile_app/modules/home/pages/home/home_page.dart';
+import 'package:photo_flow_mobile_app/modules/feed/pages/feed/feed_page.dart';
 
 import 'package:photo_flow_mobile_app/modules/profile/pages/update/update_page.dart';
 
@@ -14,7 +14,7 @@ class NavigationBarPage extends StatefulWidget {
 }
 
 class _NavigationBarPageState extends State<NavigationBarPage> {
-  final pages = const [HomePage(), PhotoUploadPage(), UpdatePage()];
+  final pages = const [FeedPage(), PhotoUploadPage(), UpdatePage()];
 
   int index = 0;
 
