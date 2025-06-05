@@ -47,18 +47,40 @@ class CardFeedComponent extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Download",
-                      style: TextStyle(
-                        backgroundColor: PhotoFlowColors.photoFlowButton,
-                        color: PhotoFlowColors.photoFlowTextPrimary,
-                        fontSize: 14,
-                      ),
+                // const Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     Text(
+                //       "Download",
+                //       style: TextStyle(
+                //         backgroundColor: PhotoFlowColors.photoFlowButton,
+                //         color: PhotoFlowColors.photoFlowTextPrimary,
+                //         fontSize: 14,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: PhotoFlowColors.photoFlowButton,
+                    foregroundColor: PhotoFlowColors.photoFlowTextPrimary,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                  ],
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    // TODO: implementar lógica de download
+                  },
+                  child: const Text(
+                    "Download",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
               ],
             ),
