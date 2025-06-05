@@ -14,11 +14,7 @@ class NavigationBarPage extends StatefulWidget {
 }
 
 class _NavigationBarPageState extends State<NavigationBarPage> {
-
-  final pages = const [HomePage(), SizedBox(), UpdatePage()];
-
-  final pages = const [HomePage(), PhotoUploadPage(), SizedBox()];
-
+  final pages = const [HomePage(), PhotoUploadPage(), UpdatePage()];
 
   int index = 0;
 
