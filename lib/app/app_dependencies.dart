@@ -46,7 +46,7 @@ class AppDependencies {
 
       ..registerLazySingleton<ProfileProvider>(
         () => ProfileProviderFirebase(firebaseAuth: FirebaseAuth.instance),
-      );
+      )
       // ignore: avoid_single_cascade_in_expression_statements
       ..registerLazySingleton<PhotoUploadProvider>(() => PhotoUploadProviderFirebase());
 
@@ -64,9 +64,9 @@ class AppDependencies {
         () => HomeCubit(homeProvider: injector.get<HomeProvider>()),
       )
       ..registerLazySingleton(
-
         () => UpdateCubit(profileProvider: injector.get<ProfileProvider>()),
-
+      )
+      ..registerLazySingleton(
         () => PhotoUploadCubit(
           photoUploadProvider: injector.get<PhotoUploadProvider>(),
           accountInfoController: injector.get<AccountInfoController>(),

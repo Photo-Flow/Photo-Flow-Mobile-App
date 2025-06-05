@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photo_flow_mobile_app/modules/home/pages/home/home_page.dart';
-
-import 'package:photo_flow_mobile_app/modules/profile/pages/update/update_page.dart';
-
 import 'package:photo_flow_mobile_app/modules/photo-upload/pages/photo_upload/photo_upload_page.dart';
+import 'package:photo_flow_mobile_app/modules/profile/pages/profile_page.dart';
 import 'package:photo_flow_mobile_app/shared/utils/colors/photo_flow_colors.dart';
 
 class NavigationBarPage extends StatefulWidget {
@@ -14,23 +12,24 @@ class NavigationBarPage extends StatefulWidget {
 }
 
 class _NavigationBarPageState extends State<NavigationBarPage> {
-
-  final pages = const [HomePage(), SizedBox(), UpdatePage()];
-
-  final pages = const [HomePage(), PhotoUploadPage(), SizedBox()];
-
+  final pages = [
+    const HomePage(),
+    const PhotoUploadPage(),
+    ProfilePage(), // <-- aqui adicionamos a tela de perfil
+  ];
 
   int index = 0;
 
   void changeIndex(int value) {
-    index = value;
-    setState(() {});
+    setState(() {
+      index = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: pages.elementAt(index)),
+      body: Center(child: pages[index]),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
@@ -43,7 +42,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
         unselectedItemColor: Colors.grey,
         backgroundColor: PhotoFlowColors.photoFlowBackground,
         currentIndex: index,
-        onTap: (value) => changeIndex(value),
+        onTap: changeIndex,
       ),
     );
   }
