@@ -57,7 +57,7 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                 ),
               );
             }
-            
+
             // Exibir SnackBar de erro quando ocorrer uma falha
             if (state.status == PhotoUploadStatus.failure) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -87,34 +87,42 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                                   cubit.selectPhoto();
                                 },
                                 borderRadius: BorderRadius.circular(24.0),
-                                child: state.selectedPhotoPath != null
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(24.0),
-                                        child: Image.file(
-                                          File(state.selectedPhotoPath!),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )
-                                    : Center(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.camera_alt_outlined,
-                                              size: 48,
-                                              color: PhotoFlowColors.photoFlowButton,
-                                            ),
-                                            const SizedBox(height: 16),
-                                            Text(
-                                              'Toque para selecionar',
-                                              style: TextStyle(
-                                                color: PhotoFlowColors.photoFlowButton,
-                                                fontSize: 16,
+                                child:
+                                    state.selectedPhotoPath != null
+                                        ? ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            24.0,
+                                          ),
+                                          child: Image.file(
+                                            File(state.selectedPhotoPath!),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                        : const Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.camera_alt_outlined,
+                                                size: 48,
+                                                color:
+                                                    PhotoFlowColors
+                                                        .photoFlowButton,
                                               ),
-                                            ),
-                                          ],
+                                              SizedBox(height: 16),
+                                              Text(
+                                                'Toque para selecionar',
+                                                style: TextStyle(
+                                                  color:
+                                                      PhotoFlowColors
+                                                          .photoFlowButton,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
                               ),
                             ),
                           ),
@@ -148,12 +156,17 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                       const SizedBox(height: 16),
                       // Usando o ButtonComponent em vez do ElevatedButton
                       ButtonComponent(
-                        title: cubit.isUserLoggedIn() ? 'Publicar' : 'Faça login para publicar',
+                        title:
+                            cubit.isUserLoggedIn()
+                                ? 'Publicar'
+                                : 'Faça login para publicar',
                         onTap: () {
                           cubit.uploadPhoto();
                         },
                         isLoading: state.status == PhotoUploadStatus.loading,
-                        isDisabled: !cubit.isUserLoggedIn() || state.selectedPhotoPath == null,
+                        isDisabled:
+                            !cubit.isUserLoggedIn() ||
+                            state.selectedPhotoPath == null,
                       ),
                     ],
                   ),
@@ -161,7 +174,7 @@ class _PhotoUploadPageState extends State<PhotoUploadPage> {
                 if (state.status == PhotoUploadStatus.loading)
                   Container(
                     color: Colors.black54,
-                    child: Center(
+                    child: const Center(
                       // Usando o LoadingComponent
                       child: LoadingComponent(
                         color: PhotoFlowColors.photoFlowButton,
